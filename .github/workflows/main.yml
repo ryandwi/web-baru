@@ -20,5 +20,6 @@ jobs:
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
+          port: 22
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /home/ubuntu/www/riyan.site/htdocs/
