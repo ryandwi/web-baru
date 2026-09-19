@@ -1,0 +1,24 @@
+name: Deploy ke Server FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ftp-deploy:
+    name: Unggah Berkas
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ambil kode repositori
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sinkronisasi berkas via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /home/ubuntu/www/riyan.site/htdocs/
