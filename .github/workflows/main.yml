@@ -1,4 +1,4 @@
-name: Deploy ke Server FTP
+name: Deploy via SFTP
 
 on:
   push:
@@ -6,20 +6,20 @@ on:
       - main
 
 jobs:
-  ftp-deploy:
-    name: Unggah Berkas
+  deploy:
+    name: Sync ke Server
     runs-on: ubuntu-latest
     steps:
-      - name: Ambil kode repositori
+      - name: Checkout Kode
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Sinkronisasi berkas via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Unggah Berkas via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          port: 22
+          username: 'root'
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /home/ubuntu/www/riyan.site/htdocs/
+          port: 22
+          local_path: './*'
+          remote_path: '/home/ubuntu/www/riyan.site/htdocs/'
+          delete_remote_files: false
